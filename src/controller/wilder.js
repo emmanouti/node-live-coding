@@ -4,14 +4,28 @@ const Wilder = require('../entity/Wilder');
 const createWilder = async (req, res) => {
     try {
         const { name } = req.body;
-        const wilder = await dataSource.getRepository(Wilder).save({name})
-        res.send(wilder)
+        const wilder = await dataSource.getRepository(Wilder).save({name});
+        res.send("User Created", wilder);
     }
     catch(err) {
         res.send(err);
     }
-}
+};
+
+
+const deleteWilder = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const wilder = await dataSource.getRepository(Wilder).findOne({where: {id: id}})
+        const result = dataSource.getRepository(Wilder).delete(wilder.id)
+        res.send(result)
+    } 
+    catch(err) {
+        res.send(err)
+    }
+};
 
 module.exports = {
-    createWilder
-}
+    createWilder,
+    deleteWilder
+};

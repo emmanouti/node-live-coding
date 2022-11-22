@@ -10,6 +10,7 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 app.post("/wilder", wilderController.createWilder);
+app.delete("/wilder/:id", wilderController.deleteWilder);
 
 const start = async () => {
   await dataSource.initialize();
