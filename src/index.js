@@ -11,6 +11,7 @@ app.get("/", (req, res) => {
 });
 app.post("/wilder", wilderController.createWilder);
 app.get("/wilder/:id", wilderController.getOneWilder);
+app.put("/wilder/:id", wilderController.updateWilder);
 app.delete("/wilder/:id", wilderController.deleteWilder);
 
 const start = async () => {

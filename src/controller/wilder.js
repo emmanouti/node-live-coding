@@ -23,6 +23,20 @@ const getOneWilder = async (req, res) => {
     }
 };
 
+const updateWilder = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name } = req.body;
+        let wilder = await dataSource.getRepository(Wilder).findOneOrFail({where: {id: id}});
+        wilder.name = name
+        const result = await dataSource.getRepository(Wilder).save(wilder);
+        res.send(result)
+    }
+    catch(err) {
+        res.send(err)
+    }
+}
+
 const deleteWilder = async (req, res) => {
     try {
         const { id } = req.params;
@@ -38,5 +52,6 @@ const deleteWilder = async (req, res) => {
 module.exports = {
     createWilder,
     deleteWilder,
-    getOneWilder
+    getOneWilder,
+    updateWilder
 };
