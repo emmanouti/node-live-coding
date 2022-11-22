@@ -10,6 +10,7 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 app.post("/wilder", wilderController.createWilder);
+app.get("/wilder", wilderController.getAllWilder);
 app.get("/wilder/:id", wilderController.getOneWilder);
 app.put("/wilder/:id", wilderController.updateWilder);
 app.delete("/wilder/:id", wilderController.deleteWilder);

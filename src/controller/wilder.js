@@ -5,12 +5,22 @@ const createWilder = async (req, res) => {
     try {
         const { name } = req.body;
         const wilder = await dataSource.getRepository(Wilder).save({name});
-        res.send("User Created", wilder);
+        res.send(wilder);
     }
     catch(err) {
         res.send(err);
     }
 };
+
+const getAllWilder = async (req, res) => {
+    try {
+        const wilders = await dataSource.getRepository(Wilder).findAndCount()
+        res.send(wilders)
+    }
+    catch(err) {
+        res.send(err);
+    }
+}
 
 const getOneWilder = async (req, res) => {
     try {
@@ -51,7 +61,8 @@ const deleteWilder = async (req, res) => {
 
 module.exports = {
     createWilder,
-    deleteWilder,
+    getAllWilder,
     getOneWilder,
+    deleteWilder,
     updateWilder
 };
