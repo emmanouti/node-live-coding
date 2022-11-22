@@ -12,13 +12,23 @@ const createWilder = async (req, res) => {
     }
 };
 
+const getOneWilder = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const wilder = await dataSource.getRepository(Wilder).findOneOrFail({where: {id: id}});
+        res.send(wilder);
+    }
+    catch(err) {
+        res.send(err);
+    }
+};
 
 const deleteWilder = async (req, res) => {
     try {
         const { id } = req.params;
-        const wilder = await dataSource.getRepository(Wilder).findOne({where: {id: id}})
-        const result = dataSource.getRepository(Wilder).delete(wilder.id)
-        res.send(result)
+        const wilder = await dataSource.getRepository(Wilder).findOne({where: {id: id}});
+        const result = dataSource.getRepository(Wilder).delete(wilder.id);
+        res.send(result);
     } 
     catch(err) {
         res.send(err)
@@ -27,5 +37,6 @@ const deleteWilder = async (req, res) => {
 
 module.exports = {
     createWilder,
-    deleteWilder
+    deleteWilder,
+    getOneWilder
 };
