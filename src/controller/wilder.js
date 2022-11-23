@@ -1,5 +1,6 @@
 const dataSource = require('../utils').dataSource;
 const Wilder = require('../entity/Wilder');
+const { Like } = require("typeorm");
 
 const createWilder = async (req, res) => {
     try {
@@ -37,7 +38,7 @@ const getOneWilder = async (req, res) => {
 const readWilder = async (req, res) => {
     const { nameContains } = req.query;
     try {
-      const wilders = await db.getRepository(Wilder).find({
+      const wilders = await dataSource.getRepository(Wilder).find({
         where: { name: nameContains ? Like(`%${nameContains}%`) : undefined },
       });
       res.send(wilders);
