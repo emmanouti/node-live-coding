@@ -3,21 +3,20 @@ const Wilder = require('../entity/Wilder');
 const { Like } = require("typeorm");
 
 const createWilder = async (req, res) => {
+    if (!name || name.length > 100) return res.status(422) 
+    const { name } = req.body;
     try {
-        if(!name || name.length > 100) return res.status(422) 
-        const { name } = req.body;
         const wilder = await dataSource.getRepository(Wilder).save({name});
-        res.send(wilder);
+        res.status(201).send(wilder);
     }
     catch(err) {
-        res.send(err);
-    }
+        res.status(500).send(err);    }
 };
 
 const getAllWilder = async (req, res) => {
     try {
         const wilders = await dataSource.getRepository(Wilder).find()
-        res.status(201).send(wilders)
+        res.send(wilders)
     }
     catch(err) {
         res.status(500).send(err);
@@ -31,7 +30,7 @@ const getOneWilder = async (req, res) => {
         res.send(wilder);
     }
     catch(err) {
-        res.send(err);
+        res.status(500).send(err);
     }
 };
 
@@ -43,8 +42,7 @@ const readWilder = async (req, res) => {
       });
       res.send(wilders);
     } catch (err) {
-      console.error(err);
-      res.status(500).send("error while reading wilders");
+    res.status(500).send(err);    
     }
   }
 
@@ -58,7 +56,7 @@ const updateWilder = async (req, res) => {
         res.send(result)
     }
     catch(err) {
-        res.send(err)
+        res.status(500).send(err);
     }
 }
 
@@ -70,7 +68,7 @@ const deleteWilder = async (req, res) => {
         res.send(result);
     } 
     catch(err) {
-        res.send(err)
+        res.status(500).send(err);
     }
 };
 
