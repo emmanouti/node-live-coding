@@ -3,14 +3,15 @@ const Wilder = require('../entity/Wilder');
 const { Like } = require("typeorm");
 
 const createWilder = async (req, res) => {
-    if (!name || name.length > 100) return res.status(422);
     const { name } = req.body;
+    if (!name || name.length > 100) return res.status(422);
     try {
         const wilder = await dataSource.getRepository(Wilder).save({name});
         res.status(201).send(wilder);
     }
     catch(err) {
-        res.status(500).send(err);    }
+        res.status(500).send(err);    
+    }
 };
 
 const getAllWilder = async (req, res) => {
@@ -47,9 +48,9 @@ const readWilder = async (req, res) => {
   }
 
 const updateWilder = async (req, res) => {
+    const { id } = req.params;
+    const { name } = req.body;
     try {
-        const { id } = req.params;
-        const { name } = req.body;
         let wilder = await dataSource.getRepository(Wilder).findOneOrFail({where: {id: id}});
         wilder.name = name
         const result = await dataSource.getRepository(Wilder).save(wilder);
@@ -61,8 +62,8 @@ const updateWilder = async (req, res) => {
 }
 
 const deleteWilder = async (req, res) => {
+    const { id } = req.params;
     try {
-        const { id } = req.params;
         const wilder = await dataSource.getRepository(Wilder).findOne({where: {id: id}});
         const result = dataSource.getRepository(Wilder).delete(wilder.id);
         res.send(result);
