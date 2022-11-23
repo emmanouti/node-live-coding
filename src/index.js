@@ -12,6 +12,7 @@ app.get("/", (req, res) => {
 app.post("/wilder", wilderController.createWilder);
 app.get("/wilder", wilderController.getAllWilder);
 app.get("/wilder/:id", wilderController.getOneWilder);
+app.get("/wilders", wilderController.readWilder);
 app.put("/wilder/:id", wilderController.updateWilder);
 app.delete("/wilder/:id", wilderController.deleteWilder);
 

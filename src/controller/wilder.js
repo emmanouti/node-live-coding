@@ -3,6 +3,7 @@ const Wilder = require('../entity/Wilder');
 
 const createWilder = async (req, res) => {
     try {
+        if(!name || name.length > 100) return res.status(422) 
         const { name } = req.body;
         const wilder = await dataSource.getRepository(Wilder).save({name});
         res.send(wilder);
@@ -14,11 +15,11 @@ const createWilder = async (req, res) => {
 
 const getAllWilder = async (req, res) => {
     try {
-        const wilders = await dataSource.getRepository(Wilder).findAndCount()
-        res.send(wilders)
+        const wilders = await dataSource.getRepository(Wilder).find()
+        res.status(201).send(wilders)
     }
     catch(err) {
-        res.send(err);
+        res.status(500).send(err);
     }
 }
 
@@ -32,6 +33,19 @@ const getOneWilder = async (req, res) => {
         res.send(err);
     }
 };
+
+const readWilder = async (req, res) => {
+    const { nameContains } = req.query;
+    try {
+      const wilders = await db.getRepository(Wilder).find({
+        where: { name: nameContains ? Like(`%${nameContains}%`) : undefined },
+      });
+      res.send(wilders);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("error while reading wilders");
+    }
+  }
 
 const updateWilder = async (req, res) => {
     try {
@@ -63,6 +77,7 @@ module.exports = {
     createWilder,
     getAllWilder,
     getOneWilder,
+    readWilder,
     deleteWilder,
     updateWilder
 };
