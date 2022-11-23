@@ -20,6 +20,9 @@ app.delete("/wilder/:id", wilderController.deleteWilder);
 
 //skills routes
 app.post("/skill", skillController.createSkill);
+app.delete("/skill/:id", skillController.deleteSkill);
+app.patch("skill/:id", skillController.updateSkill);
+app.get("/skill", skillController.readSkill);
 
 const start = async () => {
   await dataSource.initialize();
