@@ -1,6 +1,6 @@
 const { SCHEMA } = require("sqlite3");
 
-const EntitySchema = require(typeorm).EntitySchema;
+const EntitySchema = require("typeorm").EntitySchema;
 
 module.exports = new EntitySchema({
     name: "Wilder",
@@ -13,6 +13,5 @@ module.exports = new EntitySchema({
         name: {
             type: "text",
         },
-    }
-}
-)
+    },
+});
