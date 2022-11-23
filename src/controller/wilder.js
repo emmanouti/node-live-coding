@@ -3,7 +3,7 @@ const Wilder = require('../entity/Wilder');
 const { Like } = require("typeorm");
 
 const createWilder = async (req, res) => {
-    if (!name || name.length > 100) return res.status(422) 
+    if (!name || name.length > 100) return res.status(422);
     const { name } = req.body;
     try {
         const wilder = await dataSource.getRepository(Wilder).save({name});
