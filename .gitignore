@@ -1,2 +1,4 @@
+/node_modules
+/wildersdb.sqlite
 node_modules
 wildersdb.sqlite
