@@ -1,5 +1,6 @@
 const dataSource = require('../utils').dataSource;
 const Wilder = require('../entity/Wilder');
+const Skill = require('../entity/Skill');
 const { Like } = require("typeorm");
 
 const createWilder = async (req, res) => {
@@ -73,11 +74,48 @@ const deleteWilder = async (req, res) => {
     }
 };
 
+const addSkill = async (req, res) => {
+    const { wilderID } = req.params;
+    const { skillID } = req.body;
+    try {
+        const wilderToUpdate = await dataSource.getRepository(Wilder).findOneBy({id: wilderID});
+        if (wilderToUpdate === null) return res.status(404).send("wilder not found");
+        const skillToAdd = await dataSource.getRepository(Skill).findOneBy({ id: skillID });
+        if (skillToAdd === null) return res.status(404).send("skill not found");
+        wilderToUpdate.skills = [...wilderToUpdate.skills, skillToAdd];
+        await dataSource.getRepository(Wilder).save(wilderToUpdate);
+        res.send("skill added to wilder");
+    } catch(err) {
+        console.error(err);
+        res.status(500).send("error adding skill to wilder");
+    }
+};
+
+const deleteSkill = async (req, res) => {
+    const { wilderID } = req.params;
+    const { skillID } = req.body;
+    try {
+        const skillToRemove = await dataSource.getRepository(Skill).findOneBy({ id: skillID });
+        if (skillToRemove === null) return res.status(404).send("skill not found");
+        const wilderToUpdate = await dataSource.getRepository(Wilder).findOneBy({id: wilderID});
+        if (wilderToUpdate === null) return res.status(404).send("wilder not found");
+        wilderToUpdate.skills = wilderToUpdate.skills.filter(
+            (skill) => skill.id.toString() !== skillToRemove.id.toString()
+          );
+          await dataSource.getRepository(Wilder).save(wilderToUpdate);
+          res.status(200).send("skill removed from wilder");
+    } catch(err) {
+        console.error(err);
+        res.status(500).send("error while removing skill");    }
+}
+
 module.exports = {
     createWilder,
     getAllWilder,
     getOneWilder,
     readWilder,
     deleteWilder,
-    updateWilder
+    updateWilder,
+    addSkill,
+    deleteSkill
 };

@@ -1,4 +1,4 @@
-PUT http://localhost:3000/wilder/2
+PUT http://localhost:3006/wilder/2
 Content-Type: application/json
 
 {

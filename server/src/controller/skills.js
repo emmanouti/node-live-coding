@@ -2,11 +2,12 @@ const dataSource = require('../utils').dataSource;
 const Skill = require('../entity/Skill');
 
 const createSkill = async (req, res) => {
-    const { name } = req.params;
+    const { name } = req.body;
     const existingSkill = await dataSource.getRepository(Skill).findOneBy({name});
+    console.log(name)
     if (existingSkill) return res.status(409).send("a skill with this name already exists"); 
     try {
-        const created = await datasource.getRepository(Skill).save({ name });
+        const created = await dataSource.getRepository(Skill).save({ name });
         res.status(201).send(created);
     }
     catch(err) {

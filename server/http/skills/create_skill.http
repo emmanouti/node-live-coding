@@ -1,6 +1,6 @@
-POST http://localhost:3000/skill/
+POST http://localhost:3006/skill/
 Content-Type: application/json
 
 {
-    "name": "CSS"
+    "name": "Python"
 }

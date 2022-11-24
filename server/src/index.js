@@ -17,16 +17,18 @@ app.get("/wilder/:id", wilderController.getOneWilder);
 app.get("/wilders", wilderController.readWilder);
 app.put("/wilder/:id", wilderController.updateWilder);
 app.delete("/wilder/:id", wilderController.deleteWilder);
+app.post("/wilder/:wilderID/skills", wilderController.addSkill);
+app.delete("/wilder/:wilderID/skills/:skillID", wilderController.deleteSkill);
 
 //skills routes
 app.post("/skill", skillController.createSkill);
 app.delete("/skill/:id", skillController.deleteSkill);
-app.patch("skill/:id", skillController.updateSkill);
+app.put("/skill/:id", skillController.updateSkill);
 app.get("/skill", skillController.readSkill);
 
 const start = async () => {
   await dataSource.initialize();
-  app.listen(3000, () => console.log("Server started on 3000"));  
+  app.listen(3006, () => console.log("Server started on 3006"));  
 };
 
 start();

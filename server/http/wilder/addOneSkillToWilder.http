@@ -1,0 +1,6 @@
+POST http://localhost:3006/wilder/1/skills/
+Content-Type: application/json
+
+{
+    "id": "1"
+}
