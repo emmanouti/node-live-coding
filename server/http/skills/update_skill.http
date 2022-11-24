@@ -1,6 +1,0 @@
-PUT http://localhost:3000/skill/1
-Content-Type: application/json
-
-{
-    "name": "JavaScript"
-}
