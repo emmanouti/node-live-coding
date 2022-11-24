@@ -17,6 +17,8 @@ app.get("/wilder/:id", wilderController.getOneWilder);
 app.get("/wilders", wilderController.readWilder);
 app.put("/wilder/:id", wilderController.updateWilder);
 app.delete("/wilder/:id", wilderController.deleteWilder);
+app.post("/wilder/:wilderID/skills", wilderController.addSkill);
+app.delete("/wilder/:wilderID/skills/:skillID", wilderController.deleteSkill);
 
 //skills routes
 app.post("/skill", skillController.createSkill);

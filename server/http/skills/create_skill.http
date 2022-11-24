@@ -2,5 +2,5 @@ POST http://localhost:3006/skill/
 Content-Type: application/json
 
 {
-    "name": "HTML"
+    "name": "Python"
 }

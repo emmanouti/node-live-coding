@@ -1,4 +1,4 @@
-POST http://localhost:3000/wilder/
+POST http://localhost:3006/wilder/
 Content-Type: application/json
 
 {
