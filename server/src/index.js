@@ -21,12 +21,12 @@ app.delete("/wilder/:id", wilderController.deleteWilder);
 //skills routes
 app.post("/skill", skillController.createSkill);
 app.delete("/skill/:id", skillController.deleteSkill);
-app.patch("skill/:id", skillController.updateSkill);
+app.put("/skill/:id", skillController.updateSkill);
 app.get("/skill", skillController.readSkill);
 
 const start = async () => {
   await dataSource.initialize();
-  app.listen(3000, () => console.log("Server started on 3000"));  
+  app.listen(3006, () => console.log("Server started on 3006"));  
 };
 
 start();

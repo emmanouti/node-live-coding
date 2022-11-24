@@ -1,1 +1,1 @@
-GET http://localhost:3000/wilders?nameContains=ja
+GET http://localhost:3006/wilders?nameContains=ja
